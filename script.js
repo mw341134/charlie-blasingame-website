@@ -1,41 +1,26 @@
-// ==========================================
-// CHARLIE BLASINGAME — CMS STORY LOADER
-// ==========================================
-
 const storiesGrid = document.getElementById("stories-grid");
 
 async function loadStories() {
     try {
         const response = await fetch("content/stories.json");
+        if (!response.ok) throw new Error(`Could not load stories: ${response.status}`);
 
-        if (!response.ok) {
-            throw new Error(`Could not load stories: ${response.status}`);
-        }
-
-        const stories = await response.json();
+        const data = await response.json();
+        const stories = data.stories || [];
 
         stories.forEach((story) => {
             const card = document.createElement("article");
             card.classList.add("story-card");
 
             card.innerHTML = `
-                <img
-                    src="${story.imageURL}"
-                    alt="${story.title}"
-                    class="story-image"
-                >
-
+                <img src="${story.imageURL}" alt="${story.title}" class="story-image">
                 <div class="story-card-content">
                     <div class="story-meta">
                         <span class="pub-tag">${story.publication}</span>
                         <span class="year-tag">${story.year}</span>
                     </div>
-
                     <h3>${story.title}</h3>
-
-                    <span class="view-story">
-                        View Story →
-                    </span>
+                    <span class="view-story">View Story →</span>
                 </div>
             `;
 
@@ -47,25 +32,20 @@ async function loadStories() {
                 document.getElementById("modal-publication").innerText = story.publication;
                 document.getElementById("modal-year").innerText = story.year;
                 document.getElementById("modal-title").innerText = story.title;
-                document.getElementById("modal-overview").innerHTML =
-                    markdownToHTML(story.overview);
+                document.getElementById("modal-overview").innerHTML = markdownToHTML(story.overview);
                 document.getElementById("modal-link").href = story.articleLink || "#";
                 document.getElementById("story-modal").style.display = "flex";
                 document.body.classList.add("modal-open");
             });
         });
-
     } catch (error) {
         console.error("Error loading stories:", error);
-        storiesGrid.innerHTML =
-            "<p>Stories could not be loaded. Please refresh the page.</p>";
+        storiesGrid.innerHTML = "<p>Stories could not be loaded. Please refresh the page.</p>";
     }
 }
 
-// Small Markdown converter for the formatting used by the CMS.
 function markdownToHTML(markdown) {
     if (!markdown) return "";
-
     return markdown
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
@@ -77,11 +57,6 @@ function markdownToHTML(markdown) {
 }
 
 loadStories();
-
-
-// ==========================================
-// MODAL
-// ==========================================
 
 const modal = document.getElementById("story-modal");
 const closeModalBtn = document.getElementById("close-modal");
@@ -105,28 +80,14 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-
-// ==========================================
-// SMOOTH SCROLLING
-// ==========================================
-
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (event) {
         const targetID = this.getAttribute("href");
-
-        if (targetID === "#") {
-            return;
-        }
-
+        if (targetID === "#") return;
         const target = document.querySelector(targetID);
-
         if (target) {
             event.preventDefault();
-
-            target.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
         }
     });
 });
