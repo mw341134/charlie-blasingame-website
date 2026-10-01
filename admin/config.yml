@@ -1,0 +1,163 @@
+backend:
+  name: turbo-github
+  turbo_site_id: 7bef2f85-abb2-494f-8193-6d9953eb2e6c
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+
+  # =========================
+  # STORIES
+  # =========================
+
+  - name: "stories"
+    label: "Stories"
+    label_singular: "Story"
+    folder: "content/stories"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    slug: "{{slug}}"
+
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+
+      - label: "Publication"
+        name: "publication"
+        widget: "string"
+
+      - label: "Year"
+        name: "year"
+        widget: "number"
+
+      - label: "Image"
+        name: "imageURL"
+        widget: "image"
+        required: false
+
+      - label: "Overview"
+        name: "overview"
+        widget: "markdown"
+
+      - label: "Article Link"
+        name: "articleLink"
+        widget: "string"
+        required: false
+
+
+  # =========================
+  # ABOUT
+  # =========================
+
+  - name: "about"
+    label: "About"
+    files:
+
+      - name: "about"
+        label: "About Page"
+        file: "content/about.json"
+
+        fields:
+
+          - label: "Biography"
+            name: "biography"
+            widget: "markdown"
+
+          - label: "Profile Image"
+            name: "profileImage"
+            widget: "image"
+            required: false
+
+
+  # =========================
+  # EXPERTISE
+  # =========================
+
+  - name: "expertise"
+    label: "Expertise"
+    files:
+
+      - name: "expertise"
+        label: "Expertise"
+        file: "content/expertise.json"
+
+        fields:
+
+          - label: "Skills"
+            name: "skills"
+            widget: "list"
+            field:
+              label: "Skill"
+              name: "skill"
+              widget: "string"
+
+
+  # =========================
+  # TOOLS & SOFTWARE
+  # =========================
+
+  - name: "tools"
+    label: "Tools & Software"
+    files:
+
+      - name: "tools"
+        label: "Tools & Software"
+        file: "content/tools.json"
+
+        fields:
+
+          - label: "Tools"
+            name: "tools"
+            widget: "list"
+            field:
+              label: "Tool"
+              name: "tool"
+              widget: "string"
+
+
+  # =========================
+  # CONTACT
+  # =========================
+
+  - name: "contact"
+    label: "Contact"
+    files:
+
+      - name: "contact"
+        label: "Contact Information"
+        file: "content/contact.json"
+
+        fields:
+
+          - label: "Location"
+            name: "location"
+            widget: "string"
+
+          - label: "Phone"
+            name: "phone"
+            widget: "string"
+
+          - label: "Email"
+            name: "email"
+            widget: "string"
+
+          - label: "LinkedIn"
+            name: "linkedin"
+            widget: "string"
+
+          - label: "LinkedIn URL"
+            name: "linkedinURL"
+            widget: "string"
+
+          - label: "Substack"
+            name: "substack"
+            widget: "string"
+
+          - label: "Substack URL"
+            name: "substackURL"
+            widget: "string"
