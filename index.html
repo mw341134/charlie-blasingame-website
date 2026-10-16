@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Charlie Blasingame's journalism portfolio. Selected reporting, arts and culture stories, and editorial work.">
+    <title>Charlie Blasingame | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="site-brand" href="#top" aria-label="Charlie Blasingame, home">
+            <img src="images/charlie-signature.png" alt="Charlie Blasingame" class="site-signature">
+        </a>
+        <nav aria-label="Main navigation">
+            <a href="#about">About</a>
+            <a href="#stories">Stories</a>
+            <a href="#collected-stories" id="collected-nav-link" hidden>Collected Stories</a>
+            <a href="#expertise">Expertise</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main class="container" id="top">
+        <section id="about" class="about-section">
+            <div class="profile-image-container">
+                <img src="images/profile.jpg" alt="Charlie Blasingame" class="profile-img">
+            </div>
+            <div class="bio-content">
+                <p>I am currently working as an Editorial Intern at <a href="https://www.stlmag.com/author/charlie-blasingame/" target="_blank" rel="noopener noreferrer">St. Louis Magazine</a>, where I cover the arts and culture beat. I'm a rising senior majoring in Journalism and Design, with a minor in Politics at The New School in Manhattan.</p>
+                <p>In 2025, I wrote for the features desk at The New School Free Press. I also have a strong background in fine art and fashion design. I attended Parsons School of Design for a year and a half, where I studied fashion design before transferring. During my time at Parsons, I took classes ranging from video production and graphic design to technical sewing and drawing.</p>
+                <p>Recently, I completed a semester studying abroad in London at King's College, where I studied Politics, Media, and Culture. I love writing all kinds of stories, but I have a particular soft spot for stories at the intersection of politics and culture. I believe in the innate power of storytelling and hold ethics and integrity at the center of my practice.</p>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <section id="stories" class="stories-section">
+            <div class="section-heading-row">
+                <h2 class="section-title">Recent Stories</h2>
+                <span class="section-index">01 / ARCHIVE</span>
+            </div>
+            <div class="stories-grid" id="stories-grid" aria-live="polite"></div>
+        </section>
+
+        <hr class="divider">
+
+        <section id="collected-stories" class="collected-section" hidden>
+            <div class="section-heading-row">
+                <h2 class="section-title">Collected Stories</h2>
+                <span class="section-index">02 / SELECTED WORK</span>
+            </div>
+            <p class="section-intro">A curated selection of work that highlights reporting, research, interviewing, and storytelling.</p>
+            <div class="stories-grid collected-grid" id="collected-stories-grid" aria-live="polite"></div>
+        </section>
+
+        <hr class="divider">
+
+        <section id="expertise" class="skills-section">
+            <div class="skills-col">
+                <h2 class="section-title">Expertise</h2>
+                <ul class="clean-list">
+                    <li>Editorial writing, news writing, feature writing</li>
+                    <li>Interviewing</li>
+                    <li>Fact-checking</li>
+                    <li>Research including FOIA and public databases</li>
+                    <li>Strong grasp of current events and politics</li>
+                </ul>
+            </div>
+            <div class="skills-col">
+                <h2 class="section-title">Tools &amp; Software</h2>
+                <ul class="clean-list">
+                    <li>Adobe Creative Suite</li>
+                    <li>Datawrapper and Figma</li>
+                    <li>Microsoft Word</li>
+                    <li>Google Workspace</li>
+                    <li>Social media content creation</li>
+                    <li>Slack</li>
+                    <li>WordPress</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <section id="contact" class="contact-section">
+            <div class="section-heading-row">
+                <h2 class="section-title">Contact</h2>
+                <span class="section-index">03 / GET IN TOUCH</span>
+            </div>
+            <p>New York, NY, 10009</p>
+            <p>+1 (314) 440-3239</p>
+            <p>Email — <a href="mailto:charlieblasingame9@gmail.com">charlieblasingame9@gmail.com</a></p>
+            <p>LinkedIn — <a href="https://linkedin.com/in/charlie-blasingame" target="_blank" rel="noopener noreferrer">@charlie-blasingame</a></p>
+            <p>Substack — <a href="https://substack.com/@charlieblasingame" target="_blank" rel="noopener noreferrer">@charlieblasingame</a></p>
+        </section>
+    </main>
+
+    <div id="story-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-content">
+            <button class="close-btn" id="close-modal" aria-label="Close article preview">&times;</button>
+            <img id="modal-image" src="" alt="" class="modal-cover">
+            <div class="modal-meta">
+                <span id="modal-publication" class="pub-tag"></span>
+                <span id="modal-year" class="year-tag"></span>
+            </div>
+            <h2 id="modal-title" class="modal-heading"></h2>
+            <div id="modal-overview" class="modal-description"></div>
+            <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer" class="read-more-btn">Read Original Article &rarr;</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
