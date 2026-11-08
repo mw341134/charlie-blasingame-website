@@ -120,3 +120,27 @@ collections:
           - label: "Substack URL"
             name: "substackURL"
             widget: "string"
+            
+  - name: "collected-stories"
+    label: "Collected Stories"
+    files:
+      - name: "collected-stories"
+        label: "Selected Stories"
+        file: "content/collected-stories.json"
+        fields:
+          - label: "Collected Stories"
+            name: "collectedStories"
+            widget: "list"
+            allow_add: true
+            allow_remove: true
+            allow_reorder: true
+            collapsed: true
+            label_singular: "Collected Story"
+            fields:
+              - label: "Story Title"
+                name: "storyTitle"
+                widget: "string"
+              - label: "Why Selected"
+                name: "whySelected"
+                widget: "text"
+
