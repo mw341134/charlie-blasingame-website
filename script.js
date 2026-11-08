@@ -1,3 +1,4 @@
+
 const storiesGrid = document.getElementById("stories-grid");
 const collectedSection = document.getElementById("collected-stories");
 const collectedGrid = document.getElementById("collected-stories-grid");
@@ -9,14 +10,12 @@ const closeModalBtn = document.getElementById("close-modal");
 function normaliseImagePath(path) {
     if (!path) return "";
 
-    // Keep full external image URLs unchanged.
     if (/^https?:\/\//i.test(path)) return path;
 
-    // Remove the leading slash from paths such as /images/profile.jpg.
     return path.replace(/^\/+/, "");
 }
 
-// Convert basic Markdown from the CMS into HTML.
+// Convert Markdown from the CMS into HTML.
 function markdownToHTML(markdown) {
     if (!markdown) return "";
 
@@ -25,7 +24,6 @@ function markdownToHTML(markdown) {
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;");
 
-    // Support Markdown links, allowing only HTTP and HTTPS links.
     escaped = escaped.replace(
         /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,
         '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
@@ -44,10 +42,7 @@ function markdownToHTML(markdown) {
 
             if (!part) return "";
 
-            if (
-                part.startsWith("<h") ||
-                part.startsWith("<ul>")
-            ) {
+            if (part.startsWith("<h") || part.startsWith("<ul>")) {
                 return part;
             }
 
@@ -56,13 +51,15 @@ function markdownToHTML(markdown) {
         .join("");
 }
 
-// Load the About section from the CMS.
+// LOAD ABOUT SECTION FROM CMS.
 async function loadAbout() {
     const biography = document.getElementById("bio-content");
     const profileImage = document.getElementById("profile-img");
 
     try {
-        const response = await fetch("content/about.json");
+        const response = await fetch("content/about.json", {
+            cache: "no-store"
+        });
 
         if (!response.ok) {
             throw new Error(`Could not load About content (${response.status})`);
@@ -70,29 +67,31 @@ async function loadAbout() {
 
         const aboutData = await response.json();
 
-        // Update the biography if the CMS contains one.
         if (biography && aboutData.biography) {
             biography.innerHTML = markdownToHTML(aboutData.biography);
         }
 
-        // Update the profile image if one has been selected in the CMS.
         if (profileImage && aboutData.profileImage) {
             profileImage.src = normaliseImagePath(aboutData.profileImage);
         }
 
     } catch (error) {
-        // Keep the original HTML biography as a fallback.
         console.error("Error loading About content:", error);
     }
 }
 
+// OPEN STORY PREVIEW.
 function openStory(story) {
-    document.getElementById("modal-image").src = normaliseImagePath(story.imageURL || "");
+    document.getElementById("modal-image").src =
+        normaliseImagePath(story.imageURL || "");
+
     document.getElementById("modal-image").alt = story.title || "";
     document.getElementById("modal-publication").textContent = story.publication || "";
     document.getElementById("modal-year").textContent = story.year || "";
     document.getElementById("modal-title").textContent = story.title || "";
-    document.getElementById("modal-overview").innerHTML = markdownToHTML(story.overview || "");
+
+    document.getElementById("modal-overview").innerHTML =
+        markdownToHTML(story.overview || "");
 
     const articleLink = document.getElementById("modal-link");
 
@@ -102,15 +101,18 @@ function openStory(story) {
     modal.style.display = "flex";
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
-    closeModalBtn.focus();
+
+    if (closeModalBtn) closeModalBtn.focus();
 }
 
+// CLOSE STORY PREVIEW.
 function closeStoryModal() {
     modal.style.display = "none";
     modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
 }
 
+// CREATE STORY CARDS.
 function createStoryCard(story, extraText = "") {
     const card = document.createElement("button");
 
@@ -150,15 +152,12 @@ function createStoryCard(story, extraText = "") {
 
     if (extraText) {
         const reason = document.createElement("p");
-
         reason.className = "collected-reason";
         reason.textContent = extraText;
-
         content.append(reason);
     }
 
     const view = document.createElement("span");
-
     view.className = "view-story";
     view.textContent = "View Story →";
 
@@ -170,13 +169,14 @@ function createStoryCard(story, extraText = "") {
     return card;
 }
 
+// LOAD RECENT AND COLLECTED STORIES.
 async function loadStories() {
     if (!storiesGrid) return;
 
     try {
         const [storiesResponse, collectedResponse] = await Promise.all([
-            fetch("content/stories.json"),
-            fetch("content/collected-stories.json")
+            fetch("content/stories.json", { cache: "no-store" }),
+            fetch("content/collected-stories.json", { cache: "no-store" })
         ]);
 
         if (!storiesResponse.ok) {
@@ -248,11 +248,11 @@ async function loadStories() {
     }
 }
 
-// Load the About section and stories.
+// LOAD WEBSITE CONTENT.
 loadAbout();
 loadStories();
 
-// Modal controls.
+// MODAL CONTROLS.
 if (closeModalBtn) {
     closeModalBtn.addEventListener("click", closeStoryModal);
 }
@@ -269,7 +269,7 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-// Smooth scrolling for navigation links.
+// SMOOTH SCROLLING.
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (event) {
         const targetID = this.getAttribute("href");
